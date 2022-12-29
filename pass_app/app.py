@@ -25,7 +25,7 @@ def index():
     print(id_user)
     context = {
         'id': id_user,
-        'username': session.get('username')
+        'username': session.get('id')
 
     }
 

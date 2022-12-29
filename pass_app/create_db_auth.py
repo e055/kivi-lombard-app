@@ -1,7 +1,7 @@
 import sqlite3
 
-def create_db():
 
+def create_db_users():
     conn = sqlite3.connect('lombard.db')
 
     c = conn.cursor()
@@ -10,7 +10,9 @@ def create_db():
     CREATE TABLE "users" (
         "id"	INTEGER PRIMARY KEY AUTOINCREMENT,
         "username"	TEXT,
-        "password"	TEXT
+        "password"	TEXT,
+        "email" TEXT,
+        "tel" INTEGER,
     );
     """
 
@@ -19,4 +21,5 @@ def create_db():
     conn.commit()
     conn.close()
 
-create_db()
+
+create_db_users()
