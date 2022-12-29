@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block page_content %}
+<h1>Lombardzik</h1>
+
+{% if username %}
+<h2>Witaj {{ username }}, twoje id: {{ id }} (<a href="/auth/logout">wyloguj się</a>)</h2>
+{% else %}
+<h2>(<a href="/auth/login">zaloguj się</a>)</h2>
+{% endif %}
+
+
+{% if id and username %}
+<p>
+    <a href="/add_form">Zastaw przedmiot</a></p>
+    <p><a href="/add_form">Kup przedmiot</a></p>
+    <p><a href="/add_form">Wyszukaj osobę</a></p>
+    <p><a href="/add_form">Wyszukaj przedmiot</a></p>
+    <p><a href="/delete_form">Przedłuż zastaw</a>
+
+</p>
+{% endif %}
+
+<h2>Wygasające zastawy 72h:</h2>
+<table>
+    <tr>
+        <th>id</th>
+        <th>nazwa</th>
+        <th>cena</th>
+        <th>promocja</th>
+    </tr>
+    {% for p in items %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}/ {{ p.unit }}</td>
+        <td>
+            {% if p.on_sale %}
+            <b>tak</b>
+            {% else %}
+            nie
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<h2>Kursy Walut:</h2>
+{% endblock %}

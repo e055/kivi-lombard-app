@@ -3,6 +3,7 @@ from calc_and_date import date_count
 from calc_settings import compound_interest_yearly
 from calc_settings import compound_interest_comission
 
+
 def items_count(item_nam, val_i, dni):
     items = []
     values = 0
@@ -36,4 +37,3 @@ def create_person(n, s, a, i, t, item_nam, val_i, dni):
     person = {"name": name, "surname": surname, "adress": adress, "id": id_p, "tel": tel, "items": item_name,
               "sum": sum_all}
     return person
-

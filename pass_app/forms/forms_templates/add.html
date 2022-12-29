@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block page_content %}
+<center><h1>Lombard</h1></center>
+
+{% if person %}
+<h2>Poprawnie utworzono użytkownika o numerze ID: {{ person }}</h2>
+<h3>Dodaj Przedmiot</h3>
+{% else %}
+
+<form method="post" action="/add_person">
+    <p>
+        "Imię: "
+        <input type="text" name="name">
+    </p>
+    <p>
+        "Nazwisko: "
+        <input type="text" name="surname">
+    </p>
+    <p>
+        "Pesel: "
+        <input type="text" name="pesel">
+    </p>
+    <p>
+        "Adres: "
+        <input type="text" name="adress">
+    </p>
+    <p>
+        "E-mail: "
+        <input type="email" name="email">
+        w przypadku braku wpisać X
+    </p>
+    <p>
+        "Nr tel: "
+        <input type="tel" name="phone">
+    </p>
+
+    <input type="submit">
+</form>
+{% endif %}
+{% if person %}
+<form method="post" action="/add_item" >
+    <p>
+        "Nazwa przedmiotu: "
+        <input type="text" name="item_name">
+    </p>
+    <p>
+        "Numer seryjny S/N: "
+        <input type="number" name="item_sn">
+    </p>
+    <p>
+        "Kwota Zastawu: "
+        <input type="number" name="price">
+    </p>
+    <p>
+        Ilość dni pożyczki:
+        <label for="7">7 dni</label>
+        <input type="radio" id="7" name="days" value="7" checked>
+
+        <label for="14">14 dni</label>
+        <input type="radio" id="14" name="days" value="14">
+
+        <label for="21">21 dni</label>
+        <input type="radio" id="21" name="days" value="21">
+
+    </p>
+    <p>
+        <input type="checkbox" name="on_sale" checked>
+    </p>
+    <input type="submit">
+
+</form>
+{% endif %}
+
+{% endblock %}
