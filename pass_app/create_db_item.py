@@ -33,9 +33,9 @@ def create_db_lombard_items():
         "sugest_price" REAL,
         "date_in"	TEXT,
         "date_out"	TEXT,
+        "owner" TEXT
     );
     """
     c.execute(query)
     conn.commit()
     conn.close()
-

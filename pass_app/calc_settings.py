@@ -29,3 +29,12 @@ def items_val(val_i, dni):
     values = round(values, 2)
 
     return values
+
+
+def lombard_items_val(take_price):
+    val = int(take_price)
+    val_percent = val * 0.45
+    val = val + val_percent
+    values = val
+    values = round(values, 2)
+    return values

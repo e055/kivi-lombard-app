@@ -10,8 +10,10 @@
 # for i in z:
 #     print(z[0][2])
 # print(z)
-from datetime import date
 
-a = date.today()
+from researcher import client_by_pesel_search
+a = {}
+klient = client_by_pesel_search(88)
 
-print(a)
+a = klient
+print(a['name'])

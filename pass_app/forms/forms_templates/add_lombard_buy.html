@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block page_content %}
+<center><h1>Lombard</h1></center>
+
+{% if seeler %}
+<h2>Poprawnie utworzono użytkownika o numerze ID: {{ seeler }}</h2>
+<h3>Dodaj Przedmiot</h3>
+{% else %}
+
+<form method="post" action="/add_seeler">
+    <p>
+        "Imię: "
+        <input type="text" name="name">
+    </p>
+    <p>
+        "Nazwisko: "
+        <input type="text" name="surname">
+    </p>
+    <p>
+        "Pesel: "
+        <input type="text" name="pesel">
+    </p>
+    <p>
+        "E-mail: "
+        <input type="email" name="email">
+        w przypadku braku wpisać X
+    </p>
+    <p>
+        "Nr tel: "
+        <input type="tel" name="phone">
+    </p>
+
+    <input type="submit">
+</form>
+{% endif %}
+{% if seeler %}
+<form method="post" action="/add_lombard_item" >
+    <p>
+        "Nazwa przedmiotu: "
+        <input type="text" name="item_name">
+    </p>
+    <p>
+        "Numer seryjny S/N: "
+        <input type="number" name="item_sn">
+    </p>
+    <p>
+        "Kwota Zastawu: "
+        <input type="number" name="price">
+    </p>
+    <input type="submit">
+
+</form>
+{% endif %}
+
+{% endblock %}

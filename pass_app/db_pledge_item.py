@@ -23,7 +23,7 @@ def add_item():
     date_in = str(date_in)
     days = request.form.get('days')
     owner = request.cookies.get('newid')
-    ownership = request.form.get('ownership')
+
     print(item_name)
     print(item_sn)
     print(date_in)
@@ -32,7 +32,7 @@ def add_item():
     redemp_price = items_val(take_price, days)
     print(redemp_price)
     try:
-        create_item(item_name, take_price, item_sn, redemp_price, date_in, days, owner, ownership)
+        create_item(item_name, take_price, item_sn, redemp_price, date_in, days, owner)
     except sqlite3.OperationalError:
         return "Bad Request", 400
 
