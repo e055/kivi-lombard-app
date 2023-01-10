@@ -24,8 +24,8 @@ e-mail: {{ email }} <br>nr.tel: {{ tel }}<br>
 </form>
 {% endif %}
 {% if client %}
-Tutaj madrosci dla obslugi itemow ktore sa
-{% endif %}
+<p><a href="/add_more_items">Zastaw kolejny przedmiot</a></p>
+
 <table>
     <tr>
         <th>id</th>
@@ -54,11 +54,11 @@ Tutaj madrosci dla obslugi itemow ktore sa
 </table>
 
 <form method="post" action="/item_change">
-    <p>Wprowadź ID produktu który chcesz modyfikować:
+    <p>Wprowadź ID produktu który ma zostać wykupiony:
         <input type="text" name="item_id_c">
     </p>
 
     <input type="submit">
 </form>
-
+{% endif %}
 {% endblock %}

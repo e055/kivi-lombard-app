@@ -22,8 +22,13 @@ def add_item():
     date_in = date.today()
     date_in = str(date_in)
     days = request.form.get('days')
-    owner = request.cookies.get('newid')
+    new_owner = request.cookies.get('newid')
+    old_owner = request.cookies.get('client_id')
     redemp_price = items_val(take_price, days)
+    if new_owner:
+        owner = new_owner
+    else:
+        owner = old_owner
     try:
         create_item(item_name, take_price, item_sn, redemp_price, date_in, days, owner)
     except sqlite3.OperationalError:

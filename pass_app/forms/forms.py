@@ -11,6 +11,12 @@ def add_form():
     return render_template('add.html')
 
 
+@forms_bp.route('/add_more_items')
+@login_required
+def add_more_items():
+    return render_template('add_more_items.html')
+
+
 @forms_bp.route('/add_lombard_buy')
 @login_required
 def add_lombard_buy():
