@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block page_content %}
+<center>
+    <p>Przedmiot {{ name }} / pozostało do zapłaty: {{ value }}</p>
+    <p>Spłata pożyczki:</p>
+    <form method="post" action="/real_item_change">
+        <p>Wpisz kwotę spłaty:
+            <input type="number" step="0.01" name="item_value">
+        </p>
+        <input type="submit">
+    </form>
+    <p></p>
+    <form method="post" action="/change_date">
+        Wydłużenie pożyczki (płatne odrazu):
+        <p></p>
+        <label for="7">7 dni / koszt: 100 PLN</label>
+        <input type="radio" id="7" name="days" value="7" checked>
+        <p></p>
+        <label for="14">14 dni / koszt: 180 PLN</label>
+        <input type="radio" id="14" name="days" value="14">
+        <p></p>
+        <label for="21">21 dni / koszt: 250 PLN</label>
+        <input type="radio" id="21" name="days" value="21">
+
+        <p></p>
+        <input type="submit">
+    </form>
+</center>
+{% endblock %}
