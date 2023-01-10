@@ -22,14 +22,7 @@ def add_lombard_item():
     date_in = date.today()
     date_in = str(date_in)
     owner = request.cookies.get('new_seller_id')
-
-    print(item_name)
-    print(item_sn)
-    print(date_in)
-
-    print(owner)
     sugest_price = lombard_items_val(take_price)
-    print(sugest_price)
     try:
         create_lombard_item(item_name, take_price, item_sn, sugest_price, date_in, owner)
     except sqlite3.OperationalError:
@@ -46,14 +39,11 @@ def add_seeler():
     pesel = request.form.get('pesel')
     email = request.form.get('email')
     phone = request.form.get('phone')
-
     try:
         create_seeler(name, surname, pesel, email, phone)
     except sqlite3.OperationalError:
         return "Bad Request", 400
-    print(pesel)
     person = id_seeler_search(pesel)
-    print(person)
     context = {
         'seeler': person
     }

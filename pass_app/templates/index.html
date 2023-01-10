@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block page_content %}
-<h1>Lombardzik</h1>
+
 
 {% if username %}
 <h2>Witaj {{ username }}, twoje id: {{ id }} (<a href="/auth/logout">wyloguj się</a>)</h2>
@@ -15,7 +15,7 @@
     <p><a href="/add_lombard_buy">Kup przedmiot</a></p>
     <p><a href="/people_search">Wyszukaj osobę</a></p>
     <p><a href="/add_form">Wyszukaj przedmiot</a></p>
-    <p><a href="/delete_form">Przedłuż zastaw</a>
+    <p><a href="/people_search">Przedłuż zastaw</a>
 
 </p>
 {% endif %}

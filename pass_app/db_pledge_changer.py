@@ -2,36 +2,82 @@ import sqlite3
 from flask import Blueprint, request, render_template, make_response
 from auth import login_required
 from db_utils import get_connection
-from datetime import date
-from baza_add_person import create_person
-from id_by_pesel_search import id_search
 from werkzeug.utils import redirect
-from baza_add_item import create_item
-from calc_settings import items_val
-from researcher import client_by_pesel_search, client_by_id_search, researcher
+from calc_and_date import date_count
+from researcher import client_by_pesel_search, client_by_id_search, researcher, researcher_by_id
+from changer import item_changer, date_item_changer
 
 database_bp_searcher = Blueprint('database_endpoints_searcher', __name__)
 
 
-@database_bp_searcher.route('/add_item', methods=['POST'])
+@database_bp_searcher.route('/item_change', methods=['POST'])
 @login_required
-def add_item():
-    # on_sale = True if request.form.get('on_sale') else False
-    client = {}
-    value = request.form.get('value')
-    val = request.cookies.get('finder')
-    # if value == 'pesel':
-    #     client = client_by_pesel_search(val)
-    #
-    # else:
-    #     client = client_by_id_search(value)
-    #
-    # try:
-    #     create_item(item_name, take_price, item_sn, redemp_price, date_in, days, owner)
-    # except sqlite3.OperationalError:
-    #     return "Bad Request", 400
+def item_change():
+    item_id_c = request.form.get('item_id_c')
+    item = researcher_by_id(item_id_c)
+    name = item[0][1]
+    value = item[0][4]
+    context = {
+        'name': name,
+        'value': value
+    }
 
-    return redirect('/')
+    rendered_template = render_template('/item_change.html', **context)
+    response = make_response(rendered_template)
+    response.set_cookie(key='item_id', value=item_id_c)
+
+    return response
+
+
+@database_bp_searcher.route('/real_item_change', methods=['POST'])
+@login_required
+def real_item_change():
+    item_value = request.form.get('item_value')
+    item_id = request.cookies.get('item_id')
+    item = researcher_by_id(item_id)
+    value = item[0][4]
+
+    calc = value - float(item_value)
+
+    try:
+        item_changer(calc, item_id)
+    except sqlite3.OperationalError:
+        return "Bad Request", 400
+
+    context = {
+        'item_value': item_value,
+        'value': calc
+    }
+
+    rendered_template = render_template('/real_item_change.html', **context)
+    response = make_response(rendered_template)
+
+    return response
+
+
+@database_bp_searcher.route('/change_date', methods=['POST'])
+@login_required
+def change_date():
+    days = request.form.get('days')
+    item_id = request.cookies.get('item_id')
+    item = researcher_by_id(item_id)
+
+    name = item[0][1]
+    date_out = item[0][6]
+    new_date = date_count(date_out, days)
+    try:
+        date_item_changer(new_date, item_id)
+    except sqlite3.OperationalError:
+        return "Bad Request", 400
+    context = {
+        'name': name,
+        'date_out': date_out
+    }
+
+    rendered_template = render_template('/change_date.html', **context)
+    response = make_response(rendered_template)
+
+    return response
 
 
 @database_bp_searcher.route('/find_client', methods=['POST'])
@@ -62,7 +108,6 @@ def find_client():
         'items': items
     }
 
-    print(client["id"])
     rendered_template = render_template('/people_search.html', **context)
     response = make_response(rendered_template)
     response.set_cookie(key='client_id', value=str(client['id']))

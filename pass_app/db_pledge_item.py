@@ -23,14 +23,7 @@ def add_item():
     date_in = str(date_in)
     days = request.form.get('days')
     owner = request.cookies.get('newid')
-
-    print(item_name)
-    print(item_sn)
-    print(date_in)
-    print(days)
-    print(owner)
     redemp_price = items_val(take_price, days)
-    print(redemp_price)
     try:
         create_item(item_name, take_price, item_sn, redemp_price, date_in, days, owner)
     except sqlite3.OperationalError:
@@ -53,9 +46,7 @@ def add_person():
         create_person(name, surname, pesel, adres, email, phone)
     except sqlite3.OperationalError:
         return "Bad Request", 400
-    print(pesel)
     person = id_search(pesel)
-    print(person)
     context = {
         'person': person
     }

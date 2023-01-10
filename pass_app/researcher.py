@@ -18,6 +18,19 @@ def researcher(z):
     return b.fetchall()
 
 
+def researcher_by_id(z):
+    id = z
+    conn = sqlite3.connect('lombard.db')
+    c = conn.cursor()
+    query = """
+    SELECT * 
+    FROM "items"
+    WHERE ? = "items"."id";
+    """
+    b = c.execute(query, (id,))
+
+    return b.fetchall()
+
 
 def client_by_pesel_search(person_pesel):
     person_pesel = person_pesel
