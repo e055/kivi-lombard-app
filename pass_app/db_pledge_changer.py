@@ -104,7 +104,7 @@ def find_client():
                 return render_template('/people_search.html', **context)
 
         else:
-            client = client_by_id_search(value)
+            client = client_by_id_search(val)
 
     except sqlite3.OperationalError:
         return "Bad Request", 400
