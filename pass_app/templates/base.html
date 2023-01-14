@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <header class="intro-header" style="background-image: url('static/walp.png')">
+
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +25,9 @@
     {% block page_content %}
 
     {% endblock %}
+
 </center>
+        <center><p><a href="/">Powrót do strony głównej</a></p></center>
 </html>
 {% block style %}
 <style>

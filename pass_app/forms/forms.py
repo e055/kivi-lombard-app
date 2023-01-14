@@ -10,12 +10,20 @@ forms_bp = Blueprint('forms_endpoints', __name__, template_folder='forms_templat
 def add_form():
     return render_template('add.html')
 
+@forms_bp.route('/accepted_operation')
+@login_required
+def accepted_operation():
+    return render_template('accepted_operation.html')
 
 @forms_bp.route('/add_more_items')
 @login_required
 def add_more_items():
     return render_template('add_more_items.html')
 
+@forms_bp.route('/find_sell_item')
+@login_required
+def find_sell_item():
+    return render_template('find_sell_item.html')
 
 @forms_bp.route('/add_lombard_buy')
 @login_required

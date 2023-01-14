@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block page_content %}
+{% if error %}
+<h2>{{error}}</h2>
+{% endif %}
+{% if id_item %}
+<h2>Odnaleziono przedmiot o numerze ID: {{ id_item }}</h2>
+Nazwa: {{ name }}  Serial number: {{ s_n }} <br> Kwota Pozyskania: {{ value }}<br>
+Proponowana kwota sprzedaży: {{ prop_value }} <br>
+{% else %}
+Wprowadź ID rzeczy (numer z naklejki) :
+
+<form method="post" action="/find_sell_item">
+    <p>
+        <input type="number" name="id_item">
+    </p>
+    <input type="submit">
+</form>
+{% endif %}
+{% if sold == 0 %}
+    {% if id_item %}
+    <center>
+        Wprowadź kwotę sprzedaży:<p></p>
+        <form method="post" action="/find_sell_item">
+        <p>
+            <input type="number" name="value_item">
+        </p>
+        <input type="submit">
+        </form>
+
+
+    </center>
+    {% endif %}
+{% else %}
+    {% if id_item %}
+<h2>Przedmiot został sprzedany {{ sold }}</h2>
+    {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block page_content %}
+{% if error %}
+<h2>{{error}}</h2>
+{% endif %}
 <center>
-    <p>Przedmiot {{ name }} / pozostało do zapłaty: {{ value }}</p>
+    <p>Przedmiot {{ name }} o numerze seryjnym: {{ serial_n }} / pozostało do zapłaty: {{ value }}</p>
     <p>Spłata pożyczki:</p>
     <form method="post" action="/real_item_change">
         <p>Wpisz kwotę spłaty:

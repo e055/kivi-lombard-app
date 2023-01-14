@@ -38,6 +38,8 @@ def create_db_seeler():
     conn.commit()
     conn.close()
 
+# zmienic na pliki sql^
+
 
 def create_user():
     password = '123'
@@ -52,4 +54,4 @@ def create_user():
     conn.close()
 
 
-create_db_seeler()
+

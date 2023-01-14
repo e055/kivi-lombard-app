@@ -35,7 +35,7 @@ def add_item():
         return "Bad Request", 400
 
     return redirect('/')
-
+# sprawdzanie poprawnosci danych po stronie backendu !!! zawsze
 
 @database_bp.route('/add_person', methods=['POST'])
 @login_required

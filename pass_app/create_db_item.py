@@ -13,7 +13,7 @@ def create_db_items():
         "redemp_price" REAL,
         "date_in"	TEXT,
         "date_out"	TEXT,
-        "owner"	INTEGER,
+        "owner"	INTEGER
     );
     """
     c.execute(query)

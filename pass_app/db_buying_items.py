@@ -8,6 +8,8 @@ from id_by_pesel_search import id_seeler_search
 from werkzeug.utils import redirect
 from baza_add_item import create_lombard_item
 from calc_settings import lombard_items_val
+from pass_app.researcher import researcher_by_id_lombard_items
+from changer import lombard_item_changer
 
 database_endpoints_buy_item = Blueprint('database_endpoints_buy', __name__)
 
@@ -43,7 +45,11 @@ def add_seeler():
         create_seeler(name, surname, pesel, email, phone)
     except sqlite3.OperationalError:
         return "Bad Request", 400
-    person = id_seeler_search(pesel)
+    try:
+        person = id_seeler_search(pesel)
+    except sqlite3.OperationalError:
+        return "Bad Request", 400
+
     context = {
         'seeler': person
     }
@@ -53,6 +59,59 @@ def add_seeler():
     response.set_cookie(key='new_seller_id', value=p2)
 
     return response
+
+
+@database_endpoints_buy_item.route('/find_sell_item', methods=['POST'])
+@login_required
+def find_sell_item():
+    id_item_cookie = request.cookies.get('id_item')
+    id_item = request.form.get('id_item')
+    value_item = request.form.get('value_item')
+    try:
+        item = item_finder(id_item, id_item_cookie)
+        if len(item) == 0:
+            context = {'error': 'Błędnie wprowadzone ID przedmiotu, spróbuj jeszcze raz'}
+            return render_template('/find_sell_item.html', **context)
+        item_id = item_id_checker(id_item, id_item_cookie)
+    except:
+        render_templat = render_template('/')
+        response = make_response(render_templat)
+        return response
+    name = item[0][1]
+    s_n = item[0][2]
+    value = item[0][3]
+    prop_value = item[0][4]
+    sold = item[0][6]
+    try:
+        if int(sold) == 0:
+            sold = 0
+    except:
+        sold = item[0][6]
+
+    if value_item:
+        try:
+            lombard_item_changer(int(item_id), int(value_item))
+        except sqlite3.OperationalError:
+            return "Bad Request", 400
+        rendered_template = render_template('/accepted_operation.html')
+        response = make_response(rendered_template)
+
+        return response
+
+    else:
+        context = {
+            'id_item': id_item,
+            'name': name,
+            's_n': s_n,
+            'value': value,
+            'prop_value': prop_value,
+            'sold': sold
+        }
+
+        rendered_template = render_template('/find_sell_item.html', **context)
+        response = make_response(rendered_template)
+        response.set_cookie(key='id_item', value=id_item)
+        return response
 
 
 @database_endpoints_buy_item.route('/delete_item', methods=['POST'])
@@ -70,3 +129,19 @@ def delete_item():
     conn.commit()
 
     return redirect('/')
+
+
+def item_finder(item_id, item_id_cookie):
+    if item_id:
+        item = researcher_by_id_lombard_items(item_id)
+    else:
+        item = researcher_by_id_lombard_items(item_id_cookie)
+    return item
+
+
+def item_id_checker(item_id, item_id_cookie):
+    if item_id:
+        item = item_id
+    else:
+        item = item_id_cookie
+    return item

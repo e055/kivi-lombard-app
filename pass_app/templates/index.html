@@ -3,7 +3,7 @@
 
 
 {% if username %}
-<h2>Witaj {{ username }}, twoje id: {{ id }} (<a href="/auth/logout">wyloguj się</a>)</h2>
+<h2>Witaj {{ id }}, twoje id: {{ username }} (<a href="/auth/logout">wyloguj się</a>)</h2>
 {% else %}
 <h2>(<a href="/auth/login">zaloguj się</a>)</h2>
 {% endif %}
@@ -14,7 +14,7 @@
     <a href="/add_form">Zastaw przedmiot</a></p>
     <p><a href="/add_lombard_buy">Kup przedmiot</a></p>
     <p><a href="/people_search">Wyszukaj osobę</a></p>
-    <p><a href="/add_form">Wyszukaj przedmiot</a></p>
+    <p><a href="/find_sell_item">Wyszukaj przedmiot</a></p>
     <p><a href="/people_search">Przedłuż zastaw</a>
 
 </p>
@@ -25,23 +25,23 @@
     <tr>
         <th>id</th>
         <th>nazwa</th>
-        <th>cena</th>
-        <th>promocja</th>
+        <th>kwota wyceny</th>
+        <th>kwota wykupu</th>
+        <th>data ostateczna</th>
     </tr>
     {% for p in items %}
     <tr>
         <td>{{ p.id }}</td>
-        <td>{{ p.name }}</td>
-        <td>{{ p.price }}/ {{ p.unit }}</td>
-        <td>
-            {% if p.on_sale %}
-            <b>tak</b>
-            {% else %}
-            nie
-            {% endif %}
-        </td>
+        <td>{{ p.item_name }}</td>
+        <td>{{ p.take_price }}</td>
+        <td> {{ p.redemp_price }}</td>
+        <td> {{ p.date_out }}</td>
     </tr>
     {% endfor %}
 </table>
-<h2>Kursy Walut:</h2>
+<p></p>
+<h3>Kurs Złota NBP: {{ nbp_price }}</h3><p></p>
+<h2>Cena złota w skupie {{ lombard_price }}</h2>
+<p></p>
+
 {% endblock %}

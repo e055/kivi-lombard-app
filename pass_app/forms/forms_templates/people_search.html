@@ -1,24 +1,26 @@
 {% extends "base.html" %}
 {% block page_content %}
-
+{% if error %}
+<h2>{{error}}</h2>
+{% endif %}
 {% if client %}
 <h2>Odnaleziono użytkownika o numerze ID: {{ client }}</h2>
 Imie: {{ name }}  Nazwisko: {{ surname }} <br> Adres: {{ adres }}<br>
 e-mail: {{ email }} <br>nr.tel: {{ tel }}<br>
 {% else %}
-?????
+
 
 <form method="post" action="/find_client">
     <p>
         <input type="text" name="finder">
     </p>
-       <p>
+    <p>
         Wybierz po czym wyszukać :
-        <label for="pesel">Pesel</label>
-        <input type="radio" id="pesel" name="value" value="pesel" checked>
-
-        <label for="id">Numer identyfikacyjny klienta</label>
-        <input type="radio" id="id" name="value" value="id">
+    <p></p>
+    <label for="pesel">Pesel</label>
+    <input type="radio" id="pesel" name="value" value="pesel" checked>
+    <label for="id">Numer identyfikacyjny klienta</label>
+    <input type="radio" id="id" name="value" value="id">
     </p>
     <input type="submit">
 </form>
@@ -32,8 +34,6 @@ e-mail: {{ email }} <br>nr.tel: {{ tel }}<br>
         <th>nazwa</th>
         <th>data końca zastawu</th>
         <th>kwota wykupu</th>
-        <th>promocja</th>
-        <th></th>
     </tr>
     {% for p in items %}
     <tr>
@@ -41,19 +41,11 @@ e-mail: {{ email }} <br>nr.tel: {{ tel }}<br>
         <td>{{ p.item_name }}</td>
         <td>{{ p.date_out }}</td>
         <td>{{ p.redemp_price }}</td>
-        <td>
-            {% if p.on_sale %}
-            <b>tak</b>
-            {% else %}
-            nie
-            {% endif %}
-        </td>
-        <td><input type="radio" id='itemmm' name="value" value='' checked></td>
     </tr>
     {% endfor %}
 </table>
 
-<form method="post" action="/item_change">
+<form method="post" action="/item_change"><p></p>
     <p>Wprowadź ID produktu który ma zostać wykupiony:
         <input type="text" name="item_id_c">
     </p>

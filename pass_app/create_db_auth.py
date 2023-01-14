@@ -13,6 +13,7 @@ def create_db_users():
         "password"	TEXT,
         "email" TEXT,
         "tel" INTEGER,
+        "nip" INTEGER
     );
     """
 
@@ -22,4 +23,4 @@ def create_db_users():
     conn.close()
 
 
-create_db_users()
+

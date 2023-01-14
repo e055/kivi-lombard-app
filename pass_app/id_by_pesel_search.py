@@ -1,6 +1,7 @@
 import sqlite3
 
-# person_pesel = 90020945832
+
+# person_pesel = 90020945832 do testow
 
 def id_search(person_pesel):
     person_pesel = int(person_pesel)

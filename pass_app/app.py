@@ -4,6 +4,7 @@ from db_pledge_item import database_bp
 from pass_app.forms.forms import forms_bp
 from db_buying_items import database_endpoints_buy_item
 from db_pledge_changer import database_bp_searcher
+from tools import three_days_checker, gold_checker
 
 app = Flask(__name__)
 
@@ -24,11 +25,15 @@ app.register_blueprint(database_bp_searcher)
 
 @app.route('/')
 def index():
-    # items = get_all_items()
     id_user = session.get('username')
+    items = three_days_checker()
+    nbp_price, lombard_price = gold_checker()
     context = {
         'id': id_user,
-        'username': session.get('id')
+        'username': session.get('id'),
+        'items': items,
+        'nbp_price': nbp_price,
+        'lombard_price': lombard_price
     }
     return render_template('index.html', **context)
 
