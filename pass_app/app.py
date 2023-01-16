@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session
 from auth import auth_bp
 from db_pledge_item import database_bp
-from pass_app.forms import forms_bp
+from forms import forms_bp
 from db_buying_items import database_endpoints_buy_item
 from db_pledge_changer import database_bp_searcher
 from tools import three_days_checker, gold_checker
